@@ -1,8 +1,8 @@
 package org.amoseman.audiosynth.device.devices;
 
-import org.amoseman.stuff.projects.audiosynth.StereoSignal;
-import org.amoseman.stuff.projects.audiosynth.TimeData;
-import org.amoseman.stuff.projects.audiosynth.device.Device;
+import org.amoseman.audiosynth.StereoSignal;
+import org.amoseman.audiosynth.TimeData;
+import org.amoseman.audiosynth.device.Device;
 
 public class Mixer extends Device {
     @Override

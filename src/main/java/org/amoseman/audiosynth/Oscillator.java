@@ -1,8 +1,8 @@
 package org.amoseman.audiosynth;
 
-import org.amoseman.stuff.projects.audiosynth.oscillators.Saw;
-import org.amoseman.stuff.projects.audiosynth.oscillators.Sine;
-import org.amoseman.stuff.projects.audiosynth.oscillators.Square;
+import org.amoseman.audiosynth.oscillators.Saw;
+import org.amoseman.audiosynth.oscillators.Sine;
+import org.amoseman.audiosynth.oscillators.Square;
 
 public interface Oscillator {
     StereoSignal generate(double phase);

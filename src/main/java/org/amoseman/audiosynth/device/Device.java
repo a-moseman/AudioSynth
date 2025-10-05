@@ -1,8 +1,8 @@
 package org.amoseman.audiosynth.device;
 
-import org.amoseman.stuff.projects.audiosynth.NoteData;
-import org.amoseman.stuff.projects.audiosynth.StereoSignal;
-import org.amoseman.stuff.projects.audiosynth.TimeData;
+import org.amoseman.audiosynth.NoteData;
+import org.amoseman.audiosynth.StereoSignal;
+import org.amoseman.audiosynth.TimeData;
 
 import java.util.ArrayList;
 import java.util.List;

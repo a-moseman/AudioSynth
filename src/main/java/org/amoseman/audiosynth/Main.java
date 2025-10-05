@@ -1,9 +1,6 @@
 package org.amoseman.audiosynth;
 
-import org.amoseman.stuff.projects.audiosynth.device.devices.AdditiveSynth;
-import org.amoseman.stuff.projects.audiosynth.device.devices.Distortion;
-import org.amoseman.stuff.projects.audiosynth.device.devices.Reverb;
-import org.amoseman.stuff.projects.audiosynth.device.devices.Sequencer;
+import org.amoseman.audiosynth.device.devices.*;
 
 import javax.swing.*;
 
@@ -30,7 +27,8 @@ public class Main {
 
         Sequencer sequencer = Sequencer.create()
                 //.connectDevice(0.1, reverb)
-                .connectDevice(0.1,
+                .connectDevice(1.0,
+                        LowPassFilter.create(120).connectDevice(1.0,
                         Reverb.create().connectDevice(1.0,
                         Reverb.create().connectDevice(1.0,
                         Reverb.create().connectDevice(1.0,
@@ -42,7 +40,7 @@ public class Main {
                                                 .addOscillator(Oscillator.SAW, 1.0, 0.1, 0.0)
                                                 .addOscillator(Oscillator.SQUARE,  0.5, 0.1, 0.0)
                                                 .addOscillator(Oscillator.SINE, 1.0, 0.3, 0.0)
-                                                .addOscillator(Oscillator.SINE, 0.25, 0.5, 0.0)))))))
+                                                .addOscillator(Oscillator.SINE, 0.25, 0.5, 0.0))))))))
                 .addNotes(e.note(30, 1.0))
                 .addNotes(e.note(34, 1.0))
                 .addNotes(e.note(37, 1.0))

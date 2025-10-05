@@ -26,11 +26,13 @@ public class AudioProcessor {
             this.leftDataLine = AudioSystem.getSourceDataLine(format);
             this.leftDataLine.open(format);
             this.leftDataLine.start();
-            ((FloatControl) leftDataLine.getControl(FloatControl.Type.BALANCE)).setValue((float) -1.0);
+            ((FloatControl) leftDataLine.getControl(FloatControl.Type.BALANCE)).setValue(-1.0f);
+            ((FloatControl) leftDataLine.getControl(FloatControl.Type.MASTER_GAIN)).setValue(0.33f);
             this.rightDataLine = AudioSystem.getSourceDataLine(format);
             this.rightDataLine.open(format);
             this.rightDataLine.start();
-            ((FloatControl) rightDataLine.getControl(FloatControl.Type.BALANCE)).setValue((float) 1.0);
+            ((FloatControl) rightDataLine.getControl(FloatControl.Type.BALANCE)).setValue(1.0f);
+            ((FloatControl) rightDataLine.getControl(FloatControl.Type.MASTER_GAIN)).setValue(0.33f);
         } catch (LineUnavailableException e) {
             throw new RuntimeException(e);
         }

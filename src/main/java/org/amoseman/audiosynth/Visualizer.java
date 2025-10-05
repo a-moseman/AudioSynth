@@ -50,7 +50,7 @@ public class Visualizer extends JPanel implements AudioProcessorListener {
             for (int k = 0; k < n; k++) {
                 double leftSample = bb.getShort();
                 double leftYNormalized = (leftSample / Short.MAX_VALUE);
-                double leftYScaled = leftYNormalized * 5;
+                double leftYScaled = leftYNormalized * 0.5;
                 leftYScaled = leftYScaled * height + height / 2;
                 int leftY = (int) (leftYScaled);
                 y[k + n * i] = leftY;

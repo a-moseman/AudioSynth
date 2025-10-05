@@ -1,9 +1,9 @@
 package org.amoseman.audiosynth.device.devices;
 
-import org.amoseman.stuff.projects.audiosynth.StereoSignal;
-import org.amoseman.stuff.projects.audiosynth.TimeData;
-import org.amoseman.stuff.projects.audiosynth.device.Device;
-import org.amoseman.stuff.tools.Functions;
+import org.amoseman.audiosynth.StereoSignal;
+import org.amoseman.audiosynth.TimeData;
+import org.amoseman.audiosynth.device.Device;
+import org.amoseman.audiosynth.Functions;
 
 public class Distortion extends Mixer {
     private final double amplitude;

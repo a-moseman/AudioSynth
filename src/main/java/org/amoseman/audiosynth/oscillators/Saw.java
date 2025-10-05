@@ -1,7 +1,7 @@
 package org.amoseman.audiosynth.oscillators;
 
-import org.amoseman.stuff.projects.audiosynth.Oscillator;
-import org.amoseman.stuff.projects.audiosynth.StereoSignal;
+import org.amoseman.audiosynth.Oscillator;
+import org.amoseman.audiosynth.StereoSignal;
 
 public class Saw implements Oscillator {
     @Override
