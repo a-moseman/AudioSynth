@@ -14,23 +14,26 @@ public class AdditiveSynth extends Mixer {
     private final List<Double> pitches;
     private final List<Double> amplitudes;
     private final List<Double> pannings;
+    private final List<Double> phaseRandomization;
 
     private AdditiveSynth() {
         this.oscillators = new ArrayList<>();
         this.pitches = new ArrayList<>();
         this.amplitudes = new ArrayList<>();
         this.pannings = new ArrayList<>();
+        this.phaseRandomization = new ArrayList<>();
     }
 
     public static AdditiveSynth create() {
         return new AdditiveSynth();
     }
 
-    public AdditiveSynth addOscillator(Oscillator oscillator, double pitch, double amplitude, double panning) {
+    public AdditiveSynth addOscillator(Oscillator oscillator, double pitch, double amplitude, double panning, double randomization) {
         oscillators.add(oscillator);
         pitches.add(pitch);
         amplitudes.add(amplitude);
         pannings.add(panning);
+        phaseRandomization.add(randomization * Math.random() * Math.PI * 2);
         return this;
     }
 
@@ -48,7 +51,8 @@ public class AdditiveSynth extends Mixer {
                 double freq = note.freq * pitches.get(i);
                 double amp = note.amp * amplitudes.get(i);
                 double pan = pannings.get(i);
-                StereoSignal s = osc.generate(2.0 * Math.PI * timeData.time * freq).scale(amp).pan(pan);
+                double offset = phaseRandomization.get(i);
+                StereoSignal s = osc.generate(2.0 * Math.PI * (timeData.time + offset) * freq).scale(amp).pan(pan);
                 signal.add(s);
             }
         }

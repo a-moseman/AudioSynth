@@ -9,38 +9,20 @@ public class Main {
         AudioEngine e = new AudioEngine();
         e.setBeatsPerMinute(65);
 
-
-        AdditiveSynth synth = AdditiveSynth.create();
-                //.addOscillator(Oscillator.SINE, 0.25, 0.5, 0.0);
-        int n = 16;
-        for (int i = 0; i < n; i++) {
-            synth.addOscillator(
-                    Oscillator.SAW,
-                    0.25 + Math.random() * 0.01 - 0.005,
-                    1.0 / n,
-                    Math.random() - 0.5);
-        }
-        synth.addOscillator(Oscillator.SINE, 0.25, 0.33, 0.0);
-
-        Distortion distortion = Distortion.create(1.0, 2.0).connectDevice(1.0, synth);
-        Reverb reverb = Reverb.create().connectDevice(1.0, distortion);
-
         Sequencer sequencer = Sequencer.create()
-                //.connectDevice(0.1, reverb)
                 .connectDevice(1.0,
-                        LowPassFilter.create(120).connectDevice(1.0,
                         Reverb.create().connectDevice(1.0,
                         Reverb.create().connectDevice(1.0,
                         Reverb.create().connectDevice(1.0,
                         Reverb.create().connectDevice(1.0,
-                                Distortion.create(1.0, 1.0).connectDevice(1.0,
+                                LowPassFilter.create(1000).connectDevice(1.0,
                                         AdditiveSynth.create()
-                                                .addOscillator(Oscillator.SAW, 2.01, 0.2, 0.1)
-                                                .addOscillator(Oscillator.SAW, 1.99, 0.2, -0.1)
-                                                .addOscillator(Oscillator.SAW, 1.0, 0.1, 0.0)
-                                                .addOscillator(Oscillator.SQUARE,  0.5, 0.1, 0.0)
-                                                .addOscillator(Oscillator.SINE, 1.0, 0.3, 0.0)
-                                                .addOscillator(Oscillator.SINE, 0.25, 0.5, 0.0))))))))
+                                                .addOscillator(Oscillator.SAW, 2.01, 0.1, 0.1, 1.0)
+                                                .addOscillator(Oscillator.SAW, 1.99, 0.1, -0.1, 1.0)
+                                                .addOscillator(Oscillator.SAW, 1.0, 0.1, 0.0, 1.0)
+                                                .addOscillator(Oscillator.SQUARE,  0.5, 0.1, 0.0, 0.0)
+                                                .addOscillator(Oscillator.SINE, 1.0, 0.1, 0.0, 0.0)
+                                                .addOscillator(Oscillator.SINE, 0.25, 0.1, 0.0, 0.0)))))))
                 .addNotes(e.note(30, 1.0))
                 .addNotes(e.note(34, 1.0))
                 .addNotes(e.note(37, 1.0))
