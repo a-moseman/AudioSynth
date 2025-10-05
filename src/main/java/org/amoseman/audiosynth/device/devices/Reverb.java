@@ -5,18 +5,22 @@ import org.amoseman.audiosynth.TimeData;
 import org.amoseman.audiosynth.device.Device;
 
 public class Reverb extends Mixer {
-    private static final int BUFFER_SIZE = 1024 * 30;
-    private static final int DELAY = 1024 * 10;
-    private final StereoSignal[] reverbBuffer;
+    private final int bufferSize;
+    private final int delayCount;
+    private final int delayOffset;
+    private final StereoSignal[][] delayLines;
     private int position;
 
-    public Reverb() {
-        this.reverbBuffer = new StereoSignal[BUFFER_SIZE];
+    public Reverb(int delayLength, int delayCount, double delayPercentage) {
+        this.bufferSize = delayLength;
+        this.delayCount = delayCount;
+        this.delayOffset = (int) (bufferSize * delayPercentage / delayCount);
+        this.delayLines = new StereoSignal[delayCount][bufferSize];
         this.position = 0;
     }
 
-    public static Reverb create() {
-        return new Reverb();
+    public static Reverb create(int delayLength, int delayCount, double delayPercentage) {
+        return new Reverb(delayLength, delayCount, delayPercentage);
     }
 
     @Override
@@ -29,24 +33,22 @@ public class Reverb extends Mixer {
         // get input signal from devices
         propogateNotes(notes);
         StereoSignal signal = sumDeviceSignals(timeData);
-        if (position == reverbBuffer.length) {
-            position = 0;
-        }
-        reverbBuffer[position] = signal;
-        position++;
+        position = (position + 1) % bufferSize;
         StereoSignal out = signal.copy();
-        if (position == 1) {
-            return out;
+        for (int i = 0; i < delayCount; i++) {
+            int k = position - 2 - delayOffset;
+            if (k < 0) {
+                k += bufferSize;
+            }
+            StereoSignal[] delayLine = delayLines[i];
+            delayLine[position] = signal;
+            StereoSignal delaySignal = delayLine[k];
+            if (delaySignal == null) {
+                continue;
+            }
+            delaySignal = delaySignal.copy().scale(Math.pow(0.5, i + 1));
+            out.add(delaySignal);
         }
-        int k = position - 2 - DELAY;
-        if (k < 0) {
-            k += reverbBuffer.length;
-        }
-        StereoSignal previous = reverbBuffer[k];
-        if (previous == null) {
-            return out;
-        }
-        out.add(previous.copy().scale(0.5));
         return out;
     }
 }
